@@ -1,0 +1,60 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import nltk
+nltk.download('punkt')
+nltk.download('all')
+
+
+file = open('Sample.txt', 'r')
+file
+content = file.read()
+content
+#Tokenazation
+from nltk.tokenize import sent_tokenize
+sentences = sent_tokenize(content)
+sentences
+from nltk.tokenize import word_tokenize 
+words = word_tokenize(content) 
+words
+#costom token
+from nltk.tokenize import RegexpTokenizer
+tokenizer = RegexpTokenizer(r'\w+')
+words = tokenizer.tokenize(content)
+words
+#pos tagging and stop words removel
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+for sen in sentences:
+    #wordtokenize
+    words = word_tokenize(sen)
+    #print(words)
+    #filtered stopwords from these words
+    filterwords = [word.lower() for word in words
+    if word.lower() not in stopwords]
+    print(f"words without stopwords:{filterwords}")
+    print(f"words with stopwords:{words}")
+    #pos tagging
+    print(f"pos Tagging {nltk.pos_tag(filterwords)}")
+#stemming and lemmatizetion
+from nltk.stem import PorterStemmer
+from nltk.stem import WordNetLemmatizer
+lemmatizer = WordNetLemmatizer()
+for word in words:  # Iterate through the list 'words'
+    print(f"{word} - After Lemmatization = {lemmatizer.lemmatize(word)}")  # Corrected the method name 'lemmetize' to 'lemmatize'
+
+sentence = sentence[:3]
+new_sentence = [' '.join(sentence)]  # Fixed typo from 'new_seatance' to 'new_sentence'
+new_sentence
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+def calculate_tfIdf(document):
+    tokenizer = TfidfVectorizer()
+    tf_matrix = tokenizer.fit_transform(document)
+    features_names = tokenizer.get_feature_name_out()
+    return tf_matrix,features_names
+document = new_sentence
+tf_matrix, feature_name = calculate_tfIdf(new_sentence)
+print('TFIDF')
+print(feature_name, tf_matrix.toarray())

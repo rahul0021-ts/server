@@ -1,0 +1,15 @@
+import pandas as pd
+df = pd.read_csv('Iris.csv')
+df
+df.describe()
+df['SepalLengthCm'].describe()
+df['PetalLengthCm'].describe()
+df['PetalWidthCm'].describe()
+newdf = df.groupby('Species')
+newdf
+newdf.count()
+newdf.describe()
+newdf.describe().sum()
+df.SepalLengthCm.count()
+df.SepalLengthCm.std()
+df.SepalLengthCm.info()
